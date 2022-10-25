@@ -1,8 +1,11 @@
 import { Avatar, Button, Dropdown, Navbar } from 'flowbite-react';
 import React from 'react';
+import { useContext } from 'react';
 import { Link} from 'react-router-dom';
+import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 
 const Header = () => {
+    const {user} = useContext(AuthContext);
     return (
         <div>
             <Navbar
@@ -33,10 +36,16 @@ const Header = () => {
                     >
                         <Dropdown.Header>
                             <span className="block text-sm">
-                                Bonnie Green
+                                {user?.email ?
+                                user?.displayName
+                                : 'profile name'
+                            }
                             </span>
                             <span className="block truncate text-sm font-medium">
-                                name@flowbite.com
+                            {user?.email ?
+                                user?.email
+                                : 'user email @'
+                            }
                             </span>
                         </Dropdown.Header>
                         <Dropdown.Item>

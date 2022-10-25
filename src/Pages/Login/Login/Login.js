@@ -4,20 +4,39 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 
 const Login = () => {
-    const {user} = useContext(AuthContext);
-    console.log(user)
+    const {logIn, setUser} = useContext(AuthContext);
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value
+        
+
+        logIn(email, password)
+        .then(result => {
+            const user = result.user;
+            console.log(user)
+            setUser(user)
+            form.reset();
+            
+        })
+        .catch(e => console.error(e));
+    }
+
     return (
-        <form className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
   <div>
     <div className="mb-2 block">
       <Label
-        htmlFor="email1"
+        htmlFor="email"
         value="Your email"
       />
     </div>
     <TextInput
-      id="email1"
+      id="email"
       type="email"
+      name='email'
       placeholder="enter your email"
       required={true}
     />
@@ -25,13 +44,14 @@ const Login = () => {
   <div>
     <div className="mb-2 block">
       <Label
-        htmlFor="password1"
+        htmlFor="password"
         value="Your password"
       />
     </div>
     <TextInput
-      id="password1"
+      id="password"
       type="password"
+      name='password'
       placeholder='enter password'
       required={true}
     />
