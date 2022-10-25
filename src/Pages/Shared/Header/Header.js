@@ -1,11 +1,19 @@
 import { Avatar, Button, Dropdown, Navbar } from 'flowbite-react';
 import React from 'react';
 import { useContext } from 'react';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 
 const Header = () => {
-    const {user} = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogout = () => {
+        logOut()
+            .then(() => {
+                console.log('clickd')
+            })
+            .catch(e => console.error(e))
+    }
     return (
         <div>
             <Navbar
@@ -23,12 +31,22 @@ const Header = () => {
                     </span>
                 </Navbar.Brand>
                 <div className="flex md:order-2">
-                <Button className='m-2' size="xs">
-                    <Link to='/login'>Login</Link>
-                </Button>
-                <Button className='m-2' size="xs">
-                    <Link to='/register'>Register</Link>
-                </Button>
+
+                    {user?.email ?
+                        <Button onClick={handleLogout} className='m-2' size="xs">
+                            <Link to=''>Logout</Link>
+                        </Button>
+                        :
+                        <>
+
+                            <Button className='mr-2 my-2' size="xs">
+                                <Link to='/login'>Login</Link>
+                            </Button>
+                            <Button className='mr-2 my-2' size="xs">
+                                <Link to='/register'>Register</Link>
+                            </Button>
+                        </>
+                    }
                     <Dropdown
                         arrowIcon={false}
                         inline={true}
@@ -37,15 +55,15 @@ const Header = () => {
                         <Dropdown.Header>
                             <span className="block text-sm">
                                 {user?.email ?
-                                user?.displayName
-                                : 'profile name'
-                            }
+                                    user?.displayName
+                                    : 'profile name'
+                                }
                             </span>
                             <span className="block truncate text-sm font-medium">
-                            {user?.email ?
-                                user?.email
-                                : 'user email @'
-                            }
+                                {user?.email ?
+                                    user?.email
+                                    : 'user email @'
+                                }
                             </span>
                         </Dropdown.Header>
                         <Dropdown.Item>
