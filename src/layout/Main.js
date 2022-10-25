@@ -8,8 +8,12 @@ const Main = () => {
         <div>
             <Header></Header>
             <div className='border grid grid-cols-4'>
+                <div className=''>
                 <LeftSideNav></LeftSideNav>
-                <Outlet className='col-span-3'></Outlet>
+                </div>
+                <div className='border col-span-3 w-full'>
+                <Outlet></Outlet>
+                </div>
             </div>
         </div>
     );
