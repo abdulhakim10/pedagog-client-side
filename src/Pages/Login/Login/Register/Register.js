@@ -7,7 +7,7 @@ import { GoMarkGithub} from "react-icons/go";
 import {CgGoogle} from "react-icons/cg";
 
 const Register = () => {
-    const { createUser } = useContext(AuthContext);
+    const { createUser, profileUpdate } = useContext(AuthContext);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -21,14 +21,29 @@ const Register = () => {
         createUser(email, password)
             .then(result => {
                 const user = result.user;
+                form.reset('')
                 console.log(user);
+                handleUserProfileUpdate(name, photoURL);
 
             })
             .catch(e => console.error(e));
     }
+
+    const handleUserProfileUpdate = (name, photoURL) => {
+        const profile = {
+            displayName: name,
+            photoURL: photoURL
+        }
+        profileUpdate(profile)
+        .then(() => {})
+        .catch(e => console.error(e))
+    }
     return (
-        <div className=' border'>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <div className=' border bg-slate-50 rounded-lg'>
+            <div className='mt-8 mb-4'>
+                <h2 className='text-3xl font-bold text-center'>Register Form</h2>
+            </div>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4  mx-10">
                 <div className=''>
                     <div className="mb-2 block">
                         <Label
@@ -100,8 +115,8 @@ const Register = () => {
                 </Button>
                 <p>Already Have Account? Please <Link to='/login'>Login</Link></p>
             </form>
-            <div>
-                <h3>Or</h3>
+            <div className='mx-8 mb-8 px-4 pb-4  bg-slate-200 rounded-lg'>
+               <h4 className='mt-2 p-2 text-lg text-center'>Otherwise Continue With</h4>
                 <Button className='w-full'
                 color='dark'>
                     <CgGoogle className='text-2xl mr-2'/> Google

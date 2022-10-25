@@ -11,7 +11,7 @@ const Main = () => {
                 <div className=''>
                 <LeftSideNav></LeftSideNav>
                 </div>
-                <div className='border col-span-3 w-full'>
+                <div className='col-span-3 m-auto my-12 md:w-2/4'>
                 <Outlet></Outlet>
                 </div>
             </div>

@@ -8,10 +8,8 @@ const Header = () => {
     const { user, logOut } = useContext(AuthContext);
 
     const handleLogout = () => {
-        logOut()
-            .then(() => {
-                console.log('clickd')
-            })
+            logOut()
+            .then(() => {})
             .catch(e => console.error(e))
     }
     return (
@@ -32,13 +30,12 @@ const Header = () => {
                 </Navbar.Brand>
                 <div className="flex md:order-2">
 
-                    {user?.email ?
+                    { user?.uid ?
                         <Button onClick={handleLogout} className='m-2' size="xs">
                             <Link to=''>Logout</Link>
                         </Button>
                         :
                         <>
-
                             <Button className='mr-2 my-2' size="xs">
                                 <Link to='/login'>Login</Link>
                             </Button>
@@ -50,17 +47,17 @@ const Header = () => {
                     <Dropdown
                         arrowIcon={false}
                         inline={true}
-                        label={<Avatar alt="User settings" img="" rounded={true} />}
+                        label={<Avatar alt="User settings" img={user?.photoURL} rounded={true} />}
                     >
                         <Dropdown.Header>
                             <span className="block text-sm">
-                                {user?.email ?
+                                {user?.uid ?
                                     user?.displayName
                                     : 'profile name'
                                 }
                             </span>
                             <span className="block truncate text-sm font-medium">
-                                {user?.email ?
+                                {user?.uid ?
                                     user?.email
                                     : 'user email @'
                                 }
