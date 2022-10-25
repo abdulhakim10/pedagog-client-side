@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../../Contexts/AuthProvider/AuthProvider';
 import { GoMarkGithub} from "react-icons/go";
 import {CgGoogle} from "react-icons/cg";
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const Register = () => {
-    const { createUser, profileUpdate } = useContext(AuthContext);
+    const { createUser, profileUpdate, googleSignIn } = useContext(AuthContext);
+    const googleProvider = new GoogleAuthProvider();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -37,6 +39,15 @@ const Register = () => {
         profileUpdate(profile)
         .then(() => {})
         .catch(e => console.error(e))
+    }
+
+    const handleGoogleSignIn = () => {
+        googleSignIn(googleProvider)
+        .then(result => {
+            const user = result.user;
+            console.log(user)
+        })
+        .catch(e => console.error(e));
     }
     return (
         <div className=' border bg-slate-50 rounded-lg'>
@@ -117,7 +128,7 @@ const Register = () => {
             </form>
             <div className='mx-8 mb-8 px-4 pb-4  bg-slate-200 rounded-lg'>
                <h4 className='mt-2 p-2 text-lg text-center'>Otherwise Continue With</h4>
-                <Button className='w-full'
+                <Button onClick={handleGoogleSignIn} className='w-full'
                 color='dark'>
                     <CgGoogle className='text-2xl mr-2'/> Google
                 </Button>
