@@ -1,11 +1,23 @@
 import React from 'react';
+import { useLoaderData } from 'react-router-dom';
+import HomeBody from './HomeBody';
 
 const Home = () => {
+    const subjectName = useLoaderData();
     return (
         <div>
-           <div className=" bg-center h-2/5 bg-no-repeat bg-cover p-20" style={{backgroundImage: `url('https://media.kasperskycontenthub.com/wp-content/uploads/sites/43/2020/09/03103530/sl_education_report_featured-800x450.jpg')`}}>
-            <h1 className=''>This is home</h1>
-            <p className=''>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia corporis ex atque sequi vitae eligendi voluptates cumque odit totam provident, possimus odio illum, nisi autem voluptatem a suscipit beatae voluptatibus.</p>
+           <div className=" bg-center h-96 rounded-lg bg-no-repeat bg-cover pt-24 md:p-20 mt-12" style={{backgroundImage: `url('https://media.kasperskycontenthub.com/wp-content/uploads/sites/43/2020/09/03103530/sl_education_report_featured-800x450.jpg')`}}>
+            <p className='text-xl font-medium text-center text-cyan-200'>Learn The Art of Learning...</p>
+            <p className='text-xl font-medium text-center text-cyan-200'>With</p>
+            <h1 className='md:text-8xl text-6xl font-serif text-cyan-300 text-center'>Pedagog</h1>
+           </div>
+           <div className='grid md:grid-cols-3 mt-8 grid-cols-1 gap-4'>
+                {
+                    subjectName.map(subject => <HomeBody
+                    key={subject.id}
+                    subject={subject}
+                    ></HomeBody>)
+                }
            </div>
         </div>
     );

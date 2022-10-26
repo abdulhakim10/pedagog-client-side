@@ -13,33 +13,33 @@ const Header = () => {
             .catch(e => console.error(e))
     }
     return (
-        <div className='border p-2'>
+        <div className='border-2 rounded-lg border-slate-900 p-2'>
             <Navbar
                 fluid={true}
                 rounded={true}
             >
                 <Navbar.Brand href="https://flowbite.com/">
                     <img
-                        src="https://flowbite.com/docs/images/logo.svg"
-                        className="mr-3 h-6 sm:h-9"
+                        src="https://www.creativefabrica.com/wp-content/uploads/2019/11/18/awawaw_52-580x387.jpg"
+                        className="mr-0 h-8 sm:h-16"
                         alt="Flowbite Logo"
                     />
-                    <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+                    <span className="self-center whitespace-nowrap text-2xl font-serif dark:text-white">
                         Pedagog
                     </span>
                 </Navbar.Brand>
                 <div className="flex md:order-2">
 
                     {user?.uid ?
-                        <Button onClick={handleLogout} className='m-2' size="xs">
+                        <Button onClick={handleLogout} className='m-2 bg-slate-700' size="xs">
                             <Link to=''>Logout</Link>
                         </Button>
                         :
                         <>
-                            <Button className='mr-2 my-2' size="xs">
+                            <Button className='mr-2 my-2 bg-slate-700' size="xs">
                                 <Link to='/login'>Login</Link>
                             </Button>
-                            <Button className='mr-2 my-2' size="xs">
+                            <Button className='mr-2 my-2 bg-slate-700' size="xs">
                                 <Link to='/register'>Register</Link>
                             </Button>
                         </>
@@ -85,22 +85,18 @@ const Header = () => {
                     <Navbar.Toggle />
                 </div>
                 <Navbar.Collapse>
-                    <Link
-                        to="/"
-                    //   active={true}
-                    >
-                        Home
+                    <Link to="/">
+                    <p className='px-4 py-1 rounded-lg text-lg hover:text-cyan-200 hover:bg-slate-700'>Home</p>
                     </Link>
-                    <Navbar.Link href="/navbars">
-                        About
-                    </Navbar.Link>
                     <Link to='/courses'>
-                        Courses
+                    <p className='px-4 py-1 rounded-lg text-lg hover:text-cyan-200 hover:bg-slate-700'>Courses</p>
                     </Link>
-                    <Link to='/blog'>Blog</Link>
-                    <Navbar.Link href="/navbars">
-                        Contact
-                    </Navbar.Link>
+                    <Link to='/faq'>
+                    <p className='px-4 py-1 rounded-lg text-lg hover:text-cyan-200 hover:bg-slate-700'>FAQ</p>
+                    </Link>
+                    <Link to='/blog'>
+                        <p className='px-4 py-1 rounded-lg text-lg hover:text-cyan-200 hover:bg-slate-700'>Blog</p>
+                    </Link>
                 </Navbar.Collapse>
             </Navbar>
         </div>
