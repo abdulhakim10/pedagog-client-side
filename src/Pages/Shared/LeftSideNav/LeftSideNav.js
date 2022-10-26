@@ -1,3 +1,4 @@
+import { ListGroup } from 'flowbite-react';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -13,14 +14,16 @@ const LeftSideNav = () => {
     },[])
     return (
         <div className='border p-10 rounded-lg mx-auto'>
-            <h4>Subject Name</h4>
+            <h4 className='text-xl font-medium text-center mb-4'>Subjects Name</h4>
             {
-                subjectName.map(subject => <p key={subject.id}>
-                    <Link 
-                    to={`/subject/${subject.id}`
-                    }>{subject.name}
+                subjectName.map(subject => <ListGroup className='mb-2'
+                key={subject.id}>
+                    <Link to={`/subject/${subject.id}`}>
+                    <ListGroup.Item>
+                        {subject.name}
+                    </ListGroup.Item>
                     </Link>
-                </p> )
+                </ListGroup>)
             }
         </div>
     );

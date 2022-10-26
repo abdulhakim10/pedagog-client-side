@@ -5,6 +5,7 @@ import Courses from "../../Pages/Courses/Courses";
 import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/Login/Login/Login";
 import Register from "../../Pages/Login/Login/Register/Register";
+import CheckOut from "../../Pages/Subject/CheckOut";
 import Subject from "../../Pages/Subject/Subject";
 import PrivetRoute from "../PrivetRoute/PrivetRoute";
 
@@ -29,7 +30,7 @@ export const routes = createBrowserRouter([
         {
             path: '/courses',
             loader: () => fetch('http://localhost:5000/subject-name'),
-            element: <PrivetRoute> <Courses></Courses></PrivetRoute>
+            element: <Courses></Courses>
         },
         {
             path: '/login',
@@ -38,6 +39,11 @@ export const routes = createBrowserRouter([
         {
             path: '/register',
             element: <Register></Register>
+        },
+        {
+            path: '/checkout/:id',
+            loader: ({params}) => fetch(`http://localhost:5000/checkout/${params.id}`),
+            element: <PrivetRoute><CheckOut></CheckOut></PrivetRoute>
         }
        ]
     }

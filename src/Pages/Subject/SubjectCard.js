@@ -3,10 +3,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const SubjectCard = ({ subject }) => {
-    const { name, description, img } = subject;
+    const { name, img} = subject;
     return (
-        <div className="max-w-sm">
-            <Card imgSrc="https://flowbite.com/docs/images/blog/image-1.jpg">
+        <div className="max-w-sm mb-6 md:mb-0">
+            <Card>
+                    <img className='w-full h-60 rounded-lg border' src={img} alt="" />
                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     {name}
                 </h5>
