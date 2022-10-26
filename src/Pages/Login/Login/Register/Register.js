@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../../Contexts/AuthProvider/AuthProvider';
 import { GoMarkGithub} from "react-icons/go";
 import {CgGoogle} from "react-icons/cg";
-import { GoogleAuthProvider } from 'firebase/auth';
+import { useState } from 'react';
 
 const Register = () => {
-    const { createUser, profileUpdate, googleSignIn } = useContext(AuthContext);
-    const googleProvider = new GoogleAuthProvider();
+    const [error, setError] = useState('');
+    const { createUser, profileUpdate, googleSignIn, githubSignIn } = useContext(AuthContext);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -24,11 +24,15 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 form.reset('')
+                setError('');
                 console.log(user);
                 handleUserProfileUpdate(name, photoURL);
 
             })
-            .catch(e => console.error(e));
+            .catch(e => {
+                console.error(e);
+                setError(e.message);
+            });
     }
 
     const handleUserProfileUpdate = (name, photoURL) => {
@@ -42,15 +46,18 @@ const Register = () => {
     }
 
     const handleGoogleSignIn = () => {
-        googleSignIn(googleProvider)
-        .then(result => {
-            const user = result.user;
-            console.log(user)
-        })
+        googleSignIn()
+        .then(() => {})
+        .catch(e => console.error(e));
+    }
+
+    const handleGithubSignIn = () => {
+        githubSignIn()
+        .then(() => {})
         .catch(e => console.error(e));
     }
     return (
-        <div className=' border bg-slate-50 rounded-lg'>
+        <div className=' border bg-slate-50 rounded-lg mx-auto md:w-1/2'>
             <div className='mt-8 mb-4'>
                 <h2 className='text-3xl font-bold text-center'>Register Form</h2>
             </div>
@@ -124,6 +131,7 @@ const Register = () => {
                 <Button type="submit">
                     Register
                 </Button>
+                <p className='text-red-500'>{error}</p>
                 <p>Already Have Account? Please <Link to='/login'>Login</Link></p>
             </form>
             <div className='mx-8 mb-8 px-4 pb-4  bg-slate-200 rounded-lg'>
@@ -133,7 +141,7 @@ const Register = () => {
                     <CgGoogle className='text-2xl mr-2'/> Google
                 </Button>
                 <h4 className='text-xl font-bold text-center'>Or</h4>
-                <Button className='w-full'
+                <Button onClick={handleGithubSignIn} className='w-full'
                 color='dark'>
                     <GoMarkGithub className='text-2xl mr-2'/> Github
                 </Button>

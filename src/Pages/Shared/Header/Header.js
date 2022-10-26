@@ -1,4 +1,4 @@
-import { Avatar, Button, Dropdown, Navbar } from 'flowbite-react';
+import { Avatar, Button, Dropdown, Navbar, Tooltip } from 'flowbite-react';
 import React from 'react';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
@@ -8,12 +8,12 @@ const Header = () => {
     const { user, logOut } = useContext(AuthContext);
 
     const handleLogout = () => {
-            logOut()
-            .then(() => {})
+        logOut()
+            .then(() => { })
             .catch(e => console.error(e))
     }
     return (
-        <div>
+        <div className='border p-2'>
             <Navbar
                 fluid={true}
                 rounded={true}
@@ -30,7 +30,7 @@ const Header = () => {
                 </Navbar.Brand>
                 <div className="flex md:order-2">
 
-                    { user?.uid ?
+                    {user?.uid ?
                         <Button onClick={handleLogout} className='m-2' size="xs">
                             <Link to=''>Logout</Link>
                         </Button>
@@ -47,13 +47,22 @@ const Header = () => {
                     <Dropdown
                         arrowIcon={false}
                         inline={true}
-                        label={<Avatar alt="User settings" img={user?.photoURL} rounded={true} />}
+                        label={<Tooltip
+                            content={user?.uid ?
+                                user?.displayName
+                                :
+                                'user name'
+                            }
+                            placement="bottom"
+                        >
+                            <Avatar alt="User settings" img={user?.photoURL} rounded={true} />
+                        </Tooltip>}
                     >
                         <Dropdown.Header>
                             <span className="block text-sm">
                                 {user?.uid ?
                                     user?.displayName
-                                    : 'profile name'
+                                    : 'user name'
                                 }
                             </span>
                             <span className="block truncate text-sm font-medium">
@@ -63,17 +72,13 @@ const Header = () => {
                                 }
                             </span>
                         </Dropdown.Header>
-                        <Dropdown.Item>
-                            Dashboard
-                        </Dropdown.Item>
+                        
                         <Dropdown.Item>
                             Settings
                         </Dropdown.Item>
-                        <Dropdown.Item>
-                            Earnings
-                        </Dropdown.Item>
+                
                         <Dropdown.Divider />
-                        <Dropdown.Item>
+                        <Dropdown.Item onClick={handleLogout}>
                             Sign out
                         </Dropdown.Item>
                     </Dropdown>

@@ -12,11 +12,14 @@ const LeftSideNav = () => {
         .then(user => setSubjectName(user))
     },[])
     return (
-        <div>
+        <div className='border p-10 rounded-lg mx-auto'>
             <h4>Subject Name</h4>
             {
                 subjectName.map(subject => <p key={subject.id}>
-                    <Link to={`/subject/${subject.id}`}>{subject.name}</Link>
+                    <Link 
+                    to={`/subject/${subject.id}`
+                    }>{subject.name}
+                    </Link>
                 </p> )
             }
         </div>
