@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const SubjectCard = ({ subject }) => {
-    const { name, img} = subject;
+    const { name, img, description} = subject;
     return (
         <div className="max-w-sm mb-6 md:mb-0">
             <Card>
@@ -12,7 +12,7 @@ const SubjectCard = ({ subject }) => {
                     {name}
                 </h5>
                 <p className="font-normal text-gray-700 dark:text-gray-400">
-                    Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
+                {description.slice(0, 250) + '...'}
                 </p>
                 <Link
                     to={`/subject/${subject.id}`

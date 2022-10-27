@@ -1,4 +1,4 @@
-import { Button, Checkbox, Label, TextInput, Toast } from 'flowbite-react';
+import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 import React from 'react';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
@@ -10,7 +10,7 @@ import { toast } from 'react-hot-toast';
 
 const Register = () => {
     const [error, setError] = useState('');
-    const { createUser, profileUpdate, googleSignIn, githubSignIn, verifyEmail } = useContext(AuthContext);
+    const { createUser, profileUpdate, googleSignIn, githubSignIn } = useContext(AuthContext);
 
     // form submit
     const handleSubmit = (event) => {
@@ -30,7 +30,6 @@ const Register = () => {
                 setError('');
                 console.log(user);
                 handleUserProfileUpdate(name, photoURL);
-                // handleEmailVerification();
                 toast.success('Please Verify Your Email');
             })
             .catch(e => {

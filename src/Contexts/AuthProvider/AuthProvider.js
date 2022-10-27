@@ -51,10 +51,6 @@ const AuthProvider = ({children}) => {
         return signInWithEmailAndPassword(auth, email, password);
     }
 
-    // Email Verify
-    // const verifyEmail = () => {
-    //     return sendEmailVerification(auth.currentUser);
-    // }
 
     // function for Logout
     const logOut = async() => {
@@ -78,6 +74,7 @@ const AuthProvider = ({children}) => {
     // Send Values
     const authInfo = {
         user,
+        loading,
         setUser, 
         setLoading,
         createUser, 

@@ -31,15 +31,15 @@ const Header = () => {
                 <div className="flex md:order-2">
 
                     {user?.uid ?
-                        <Button onClick={handleLogout} className='m-2 bg-slate-700' size="xs">
+                        <Button color={'dark'} onClick={handleLogout} className='m-2 bg-slate-700' size="xs">
                             <Link to=''>Logout</Link>
                         </Button>
                         :
                         <>
-                            <Button className='mr-2 my-2 bg-slate-700' size="xs">
+                            <Button color={'dark'} className='mr-2 my-2 bg-slate-700' size="xs">
                                 <Link to='/login'>Login</Link>
                             </Button>
-                            <Button className='mr-2 my-2 bg-slate-700' size="xs">
+                            <Button color={'dark'} className='mr-2 my-2 bg-slate-700' size="xs">
                                 <Link to='/register'>Register</Link>
                             </Button>
                         </>

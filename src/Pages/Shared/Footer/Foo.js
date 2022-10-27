@@ -3,15 +3,9 @@ import React from 'react';
 
 const Foo = () => {
     return (   
-        <Footer className='bg-gray-900' container={true}>
+        <Footer className='border-2 border-slate-900' container={true}>
         <div className="w-full text-center">
-          <div className="w-full justify-between sm:flex sm:items-center sm:justify-between">
-            <Footer.Brand
-              href="https://flowbite.com"
-              src="https://flowbite.com/docs/images/logo.svg"
-              alt="Flowbite Logo"
-              name="Flowbite"
-            />
+          <div className="w-full flex items-center justify-center">
             <Footer.LinkGroup>
               <Footer.Link href="#">
                 About
@@ -30,7 +24,7 @@ const Foo = () => {
           <Footer.Divider />
           <Footer.Copyright
             href="#"
-            by="Flowbite™"
+            by="Pedagog™"
             year={2022}
           />
         </div>
