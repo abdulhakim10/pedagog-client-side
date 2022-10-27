@@ -18,12 +18,7 @@ const Header = () => {
                 fluid={true}
                 rounded={true}
             >
-                <Navbar.Brand href="https://flowbite.com/">
-                    <img
-                        src="https://www.creativefabrica.com/wp-content/uploads/2019/11/18/awawaw_52-580x387.jpg"
-                        className="mr-0 h-8 sm:h-16"
-                        alt="Flowbite Logo"
-                    />
+                <Navbar.Brand href="/">
                     <span className="self-center whitespace-nowrap text-xl font-serif dark:text-white">
                         Pedagog
                     </span>

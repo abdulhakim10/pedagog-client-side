@@ -17,20 +17,28 @@ const githubProvider = new GithubAuthProvider();
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [callEffect, setCallEffect] = useState(true)
 
     // Create User with email-password
-    const createUser= async(email, password) => {
+    const createUser= async(email, password, name, photoURL) => {
+        const profile = {
+            displayName: name,
+            photoURL: photoURL
+        }
         setLoading(true);
         await createUserWithEmailAndPassword(auth, email, password);
-        await sendEmailVerification(auth.currentUser)
+        await updateProfile(auth.currentUser, profile)
+        await setCallEffect(!callEffect)
+        console.log(user)
+        // await sendEmailVerification(auth.currentUser)
 
     }
 
     // User Profile update
-    const profileUpdate = (profile) => {
-        setLoading(true);
-        return updateProfile(auth.currentUser, profile);
-    }
+    // const profileUpdate = (profile) => {
+    //     setLoading(true);
+    //     return updateProfile(auth.currentUser, profile);
+    // }
 
     // Sign In With Google
     const googleSignIn = () => {
@@ -38,6 +46,9 @@ const AuthProvider = ({children}) => {
         return signInWithPopup(auth, googleProvider);
     }
 
+    const verifyEmail = () => {
+        return sendEmailVerification(auth.currentUser)
+    }
 
     // Sign In with Github
     const githubSignIn = () => {
@@ -46,9 +57,11 @@ const AuthProvider = ({children}) => {
     }
     
     // Login with email-password
-    const logIn = (email, password) => {
-        setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password);
+    const logIn = async(email, password) => {
+        // setLoading(true);
+        await signInWithEmailAndPassword(auth, email, password);
+        setCallEffect(!callEffect)
+        
     }
 
 
@@ -63,13 +76,14 @@ const AuthProvider = ({children}) => {
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             console.log('state changed', currentUser);
-            if(currentUser === null || currentUser.emailVerified){
-                setUser(currentUser);
-            }
+            setUser(currentUser);
+            // if(currentUser === null || currentUser.emailVerified){
+            //     setUser(currentUser);
+            // }
             setLoading(false);
         })
         return unSubscribe();
-    },[])
+    },[callEffect])
 
     // Send Values
     const authInfo = {
@@ -78,9 +92,10 @@ const AuthProvider = ({children}) => {
         setUser, 
         setLoading,
         createUser, 
+        verifyEmail,
         googleSignIn, 
         githubSignIn, 
-        profileUpdate, 
+        // profileUpdate, 
         logIn, 
         // verifyEmail,
         logOut}

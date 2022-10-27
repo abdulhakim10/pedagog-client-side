@@ -1,4 +1,4 @@
-import { Button, Card, Checkbox, Label, TextInput } from 'flowbite-react';
+import { Button, Card , Label, TextInput } from 'flowbite-react';
 import React, { useContext } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
@@ -6,7 +6,7 @@ import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 const CheckOut = () => {
     const subject = useLoaderData();
     const { user } = useContext(AuthContext);
-    const { name, img, descriprtion } = subject;
+    const { name, img, description } = subject;
     console.log(subject)
     return (
         <div className='md:flex gap-6 my-8'>
@@ -70,12 +70,12 @@ const CheckOut = () => {
                             <img className='w-2/5' src={img} alt="" />
                             <div>
                                 <h4 className='text-xl font-medium'>{name}</h4>
-                                <p>{descriprtion}</p>
+                                <p>{description}</p>
                                 <p>Price:</p>
                             </div>
                         </div>
                     </Card>
-                    <div>
+                    {/* <div>
                         <Card>
                             <div className=''>
                                 <Label
@@ -93,7 +93,7 @@ const CheckOut = () => {
                                 </Button>
                             </div>
                         </Card>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

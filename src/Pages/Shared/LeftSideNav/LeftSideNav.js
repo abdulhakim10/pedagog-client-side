@@ -8,7 +8,7 @@ const LeftSideNav = () => {
     const [subjectName, setSubjectName] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/subject-name')
+        fetch('https://pedagog-learning-assignment-server.vercel.app/subject-name')
         .then(res => res.json())
         .then(user => setSubjectName(user))
     },[])

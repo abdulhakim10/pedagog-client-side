@@ -27,9 +27,11 @@ const Subject = () => {
                                 </Pdf>
                                 
                             </div>
+                            
                             <p className="font-normal text-gray-700 dark:text-gray-400 mb-4">
                                 {description}
                             </p>
+                            
                             <Link to={`/checkout/${subject.id}`}>
                                 <Button>
                                     Get Premium

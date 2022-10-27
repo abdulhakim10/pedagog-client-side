@@ -9,51 +9,56 @@ import { toast } from 'react-hot-toast';
 
 const Login = () => {
     const [error, setError] = useState('');
-    const { logIn, googleSignIn, githubSignIn, setUser } = useContext(AuthContext);
+    const { logIn, googleSignIn, githubSignIn, setUser, setLoading } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
 
     const from = location.state?.from?.pathname || '/';
 
-    const handleSubmit = event => {
+    const handleSubmit = async(event) => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value
 
 
-        logIn(email, password)
-            .then(result => {
-                const user = result.user;
-                console.log(user)
-                setError('');
-                form.reset('');
-                if(user.emailVerified){
-                    navigate(from, {replace: true})
-                    setUser(user)
-                }
-                else{
-                    toast.error('Your Email not verified. Please Verify.')
-                }
+        await logIn(email, password)
+        await form.reset('')
+        navigate(from, {replace: true})
+            // .then(result => {
+            //     const user = result.user;
+            //     console.log(user)
+            //     setError('');
+            //     form.reset('');
+                
+            //     setUser(user)
+            //     navigate(from, {replace: true})
 
-            })
-            .catch(e => {
-                console.error(e);
-                setError(e.message);
-            })
+
+            // })
+            // .catch(e => {
+            //     console.error(e);
+            //     setError(e.message);
+            // })
            
     }
 
-    const handleGoogleSignIn = () => {
-        googleSignIn()
-        .then(() => {})
-        .catch(e => console.error(e));
+    const handleGoogleSignIn = async() => {
+        const user = await googleSignIn()
+        await setUser(user)
+        await setLoading(false)
+        // .then((user) => {})
+        // .catch(e => console.error(e));
+        navigate(from, {replace: true})
     }
 
-    const handleGithubSignIn = () => {
-        githubSignIn()
-        .then(() => {})
-        .catch(error => console.error(error));
+    const handleGithubSignIn = async() => {
+        const user = await githubSignIn()
+        await setUser(user)
+        await setLoading(false)
+        // .then(() => {})
+        // .catch(error => console.error(error));
+        navigate(from, {replace: true})
     }
 
     return (

@@ -17,7 +17,7 @@ export const routes = createBrowserRouter([
        children: [
         {
             path: '/',
-            loader: () => fetch('http://localhost:5000/subject-name'),
+            loader: () => fetch('https://pedagog-learning-assignment-server.vercel.app/subject-name'),
             element: <Home></Home>
         },
         {
@@ -26,12 +26,12 @@ export const routes = createBrowserRouter([
         },
         {
             path: '/subject/:id',
-            loader: ({params}) => fetch(`http://localhost:5000/subject/${params.id}`),
+            loader: ({params}) => fetch(`https://pedagog-learning-assignment-server.vercel.app/subject/${params.id}`),
             element: <Subject></Subject>
         },
         {
             path: '/courses',
-            loader: () => fetch('http://localhost:5000/subject-name'),
+            loader: () => fetch('https://pedagog-learning-assignment-server.vercel.app/subject-name'),
             element: <Courses></Courses>
         },
         {
@@ -44,7 +44,7 @@ export const routes = createBrowserRouter([
         },
         {
             path: '/checkout/:id',
-            loader: ({params}) => fetch(`http://localhost:5000/checkout/${params.id}`),
+            loader: ({params}) => fetch(`https://pedagog-learning-assignment-server.vercel.app/checkout/${params.id}`),
             element: <PrivetRoute><CheckOut></CheckOut></PrivetRoute>
         },
         {

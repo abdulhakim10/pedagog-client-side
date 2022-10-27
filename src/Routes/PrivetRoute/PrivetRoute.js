@@ -7,15 +7,16 @@ import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 const PrivetRoute = ({children}) => {
     const {user, loading} = useContext(AuthContext);
     const location = useLocation();
-
+    console.log(user);
     if(loading){
         return <Spinner
         aria-label="Extra large spinner example"
         size="xl"
       />
     }
+    
 
-    if(!user){
+    if(user === null){
         return <Navigate to='/login' state={{from: location}} replace></Navigate>
     }
     return children;

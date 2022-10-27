@@ -1,7 +1,7 @@
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 import React from 'react';
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../Contexts/AuthProvider/AuthProvider';
 import { GoMarkGithub} from "react-icons/go";
 import {CgGoogle} from "react-icons/cg";
@@ -10,10 +10,14 @@ import { toast } from 'react-hot-toast';
 
 const Register = () => {
     const [error, setError] = useState('');
-    const { createUser, profileUpdate, googleSignIn, githubSignIn } = useContext(AuthContext);
+    const { createUser, verifyEmail, profileUpdate, googleSignIn, githubSignIn } = useContext(AuthContext);
 
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || '/';
     // form submit
-    const handleSubmit = (event) => {
+    const handleSubmit = async(event) => {
         event.preventDefault();
         const form = event.target;
         const name = form.name.value;
@@ -23,32 +27,36 @@ const Register = () => {
         console.log(name, email, photoURL, password)
 
         // Create User with email-password
-        createUser(email, password)
-            .then(result => {
-                const user = result.user;
-                form.reset('')
-                setError('');
-                console.log(user);
-                handleUserProfileUpdate(name, photoURL);
-                toast.success('Please Verify Your Email');
-            })
-            .catch(e => {
-                console.error(e);
-                setError(e.message);
-            });
+        await createUser(email, password, name, photoURL)
+        form.reset('')
+        navigate(from, {replace: true})
+            // .then(result => {
+            //     console.log(result)
+            //     const user = result.user;
+            //     form.reset('')
+            //     setError('');
+            //     console.log(user);
+            //     handleUserProfileUpdate(name, photoURL);
+            //     // handleEmailVerification();
+            //     toast.success('Please Verify Your Email');
+            // })
+            // .catch(e => {
+            //     console.error(e);
+            //     setError(e.message);
+            // });
     }
 
 
     // Update User name and photoURL
-    const handleUserProfileUpdate = (name, photoURL) => {
-        const profile = {
-            displayName: name,
-            photoURL: photoURL
-        }
-        profileUpdate(profile)
-        .then(() => {})
-        .catch(e => console.error(e))
-    }
+    // const handleUserProfileUpdate = (name, photoURL) => {
+    //     const profile = {
+    //         displayName: name,
+    //         photoURL: photoURL
+    //     }
+    //     profileUpdate(profile)
+    //     .then(() => {})
+    //     .catch(e => console.error(e))
+    // }
 
 
     // Sign In with Google Account
