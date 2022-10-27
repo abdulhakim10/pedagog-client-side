@@ -6,7 +6,7 @@ import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 const CheckOut = () => {
     const subject = useLoaderData();
     const { user } = useContext(AuthContext);
-    const { name, img, description } = subject;
+    const { name, img, description, price } = subject;
     console.log(subject)
     return (
         <div className='md:flex gap-6 my-8'>
@@ -53,12 +53,12 @@ const CheckOut = () => {
                             <TextInput
                                 id="payment"
                                 type="text"
-                                placeholder='please enter yourcard number'
+                                placeholder='please enter your card number'
                                 required={true}
                             />
                         </div>
                         <Button type="submit">
-                            Submit
+                            Enroll
                         </Button>
                     </form>
                 </Card>
@@ -66,12 +66,12 @@ const CheckOut = () => {
             <div>
                 <div className='w-full'>
                     <Card>
-                        <div className='flex gap-10'>
-                            <img className='w-2/5' src={img} alt="" />
+                        <div className='md:flex gap-10'>
+                            <img className='md:w-2/5 w-full' src={img} alt="" />
                             <div>
                                 <h4 className='text-xl font-medium'>{name}</h4>
                                 <p>{description}</p>
-                                <p>Price:</p>
+                                <p>Price:{price}</p>
                             </div>
                         </div>
                     </Card>

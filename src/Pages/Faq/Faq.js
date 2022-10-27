@@ -7,7 +7,6 @@ const Faq = () => {
             <Accordion className='bg-slate-900'>
   <Accordion.Panel>
     <Accordion.Title className='bg-slate-900 text-cyan-300'>
-      What is Flowbite?
     </Accordion.Title>
     <Accordion.Content>
       <p className="mb-2 text-gray-500 dark:text-gray-400">
