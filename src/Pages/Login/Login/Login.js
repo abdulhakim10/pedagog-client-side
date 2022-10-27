@@ -5,10 +5,11 @@ import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 import { GoMarkGithub} from "react-icons/go";
 import {CgGoogle} from "react-icons/cg";
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
     const [error, setError] = useState('');
-    const { logIn, setUser, googleSignIn, githubSignIn } = useContext(AuthContext);
+    const { logIn, googleSignIn, githubSignIn, setUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -25,16 +26,22 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user)
-                setUser(user)
                 setError('');
                 form.reset('');
-                navigate(from, {replace: true})
+                if(user.emailVerified){
+                    navigate(from, {replace: true})
+                    setUser(user)
+                }
+                else{
+                    toast.error('Your Email not verified. Please Verify.')
+                }
 
             })
             .catch(e => {
                 console.error(e);
                 setError(e.message);
-            });
+            })
+           
     }
 
     const handleGoogleSignIn = () => {
@@ -50,7 +57,7 @@ const Login = () => {
     }
 
     return (
-        <div className=' border bg-slate-50 rounded-lg mx-auto md:w-1/2'>
+        <div className=' border-2 border-slate-900 bg-slate-50 rounded-lg my-8 mx-auto md:w-1/2'>
             <div className='mt-8 mb-4'>
                 <h2 className='text-3xl font-bold text-center'>Login Form</h2>
             </div>
@@ -91,11 +98,11 @@ const Login = () => {
                         Remember me
                     </Label>
                 </div>
-                <Button type="submit">
+                <Button color={'dark'} type="submit">
                     Login
                 </Button>
                 <p className='text-red-500'>{error}</p>
-                <p>New User. Please go to <Link to='/register'>Register</Link></p>
+                <p>New User. Please go to <Link to='/register'><u className='text-blue-600'>Register</u></Link></p>
             </form>
             <div className='mx-8 mb-8 px-4 pb-4  bg-slate-200 rounded-lg'>
                <h4 className='mt-2 p-2 text-lg text-center'>Otherwise Continue With</h4>

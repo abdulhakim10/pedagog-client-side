@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import app from '../../firebase/firebase.config';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -8,21 +8,25 @@ const auth = getAuth(app);
 
 export const AuthContext = createContext();
 
+// Google Provider
 const googleProvider = new GoogleAuthProvider();
 
+// Github Provider
 const githubProvider = new GithubAuthProvider();
 
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // function for createUser with email-password
-    const createUser= (email, password) => {
+    // Create User with email-password
+    const createUser= async(email, password) => {
         setLoading(true);
-        return createUserWithEmailAndPassword(auth, email, password);
+        await createUserWithEmailAndPassword(auth, email, password);
+        await sendEmailVerification(auth.currentUser)
+
     }
 
-    // function for User Profile update
+    // User Profile update
     const profileUpdate = (profile) => {
         setLoading(true);
         return updateProfile(auth.currentUser, profile);
@@ -41,37 +45,49 @@ const AuthProvider = ({children}) => {
         return signInWithPopup(auth, githubProvider);
     }
     
-    // function for Login with email-password
+    // Login with email-password
     const logIn = (email, password) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     }
 
+    // Email Verify
+    // const verifyEmail = () => {
+    //     return sendEmailVerification(auth.currentUser);
+    // }
+
     // function for Logout
-    const logOut = () => {
+    const logOut = async() => {
         setLoading(true);
-        return signOut(auth);
+        await signOut(auth);
+        setUser(null);
     }
 
+    // Observation
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             console.log('state changed', currentUser);
-            setUser(currentUser);
+            if(currentUser === null || currentUser.emailVerified){
+                setUser(currentUser);
+            }
             setLoading(false);
         })
         return unSubscribe();
     },[])
 
+    // Send Values
     const authInfo = {
-        user, 
-        loading,
+        user,
         setUser, 
+        setLoading,
         createUser, 
         googleSignIn, 
         githubSignIn, 
         profileUpdate, 
         logIn, 
+        // verifyEmail,
         logOut}
+
     return (
         <AuthContext.Provider value={authInfo}>
             {children}

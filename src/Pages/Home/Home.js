@@ -5,7 +5,7 @@ import HomeBody from './HomeBody';
 const Home = () => {
     const subjectName = useLoaderData();
     return (
-        <div>
+        <div className='mb-8'>
            <div className=" bg-center h-96 rounded-lg bg-no-repeat bg-cover pt-24 md:p-20 mt-12" style={{backgroundImage: `url('https://media.kasperskycontenthub.com/wp-content/uploads/sites/43/2020/09/03103530/sl_education_report_featured-800x450.jpg')`}}>
             <p className='text-xl font-medium text-center text-cyan-200'>Learn The Art of Learning...</p>
             <p className='text-xl font-medium text-center text-cyan-200'>With</p>

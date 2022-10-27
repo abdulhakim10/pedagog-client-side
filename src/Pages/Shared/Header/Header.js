@@ -9,7 +9,7 @@ const Header = () => {
 
     const handleLogout = () => {
         logOut()
-            .then(() => { })
+            .then(() => {})
             .catch(e => console.error(e))
     }
     return (
@@ -24,7 +24,7 @@ const Header = () => {
                         className="mr-0 h-8 sm:h-16"
                         alt="Flowbite Logo"
                     />
-                    <span className="self-center whitespace-nowrap text-2xl font-serif dark:text-white">
+                    <span className="self-center whitespace-nowrap text-xl font-serif dark:text-white">
                         Pedagog
                     </span>
                 </Navbar.Brand>

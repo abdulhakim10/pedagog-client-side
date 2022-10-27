@@ -1,4 +1,4 @@
-import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
+import { Button, Checkbox, Label, TextInput, Toast } from 'flowbite-react';
 import React from 'react';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
@@ -6,11 +6,13 @@ import { AuthContext } from '../../../../Contexts/AuthProvider/AuthProvider';
 import { GoMarkGithub} from "react-icons/go";
 import {CgGoogle} from "react-icons/cg";
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 const Register = () => {
     const [error, setError] = useState('');
-    const { createUser, profileUpdate, googleSignIn, githubSignIn } = useContext(AuthContext);
+    const { createUser, profileUpdate, googleSignIn, githubSignIn, verifyEmail } = useContext(AuthContext);
 
+    // form submit
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -20,6 +22,7 @@ const Register = () => {
         const password = form.password.value;
         console.log(name, email, photoURL, password)
 
+        // Create User with email-password
         createUser(email, password)
             .then(result => {
                 const user = result.user;
@@ -27,7 +30,8 @@ const Register = () => {
                 setError('');
                 console.log(user);
                 handleUserProfileUpdate(name, photoURL);
-
+                // handleEmailVerification();
+                toast.success('Please Verify Your Email');
             })
             .catch(e => {
                 console.error(e);
@@ -35,6 +39,8 @@ const Register = () => {
             });
     }
 
+
+    // Update User name and photoURL
     const handleUserProfileUpdate = (name, photoURL) => {
         const profile = {
             displayName: name,
@@ -45,19 +51,30 @@ const Register = () => {
         .catch(e => console.error(e))
     }
 
+
+    // Sign In with Google Account
     const handleGoogleSignIn = () => {
         googleSignIn()
         .then(() => {})
         .catch(e => console.error(e));
     }
 
+
+    // Sign In with Github Account
     const handleGithubSignIn = () => {
         githubSignIn()
         .then(() => {})
         .catch(e => console.error(e));
     }
+
+    // Email Verification
+    // const handleEmailVerification = () => {
+    //     verifyEmail()
+    //     .then(() => {})
+    //     .catch(e => console.error(e))
+    // }
     return (
-        <div className=' border bg-slate-50 rounded-lg mx-auto md:w-1/2'>
+        <div className=' border-2 border-slate-900 bg-slate-50 rounded-lg my-8 mx-auto md:w-1/2'>
             <div className='mt-8 mb-4'>
                 <h2 className='text-3xl font-bold text-center'>Register Form</h2>
             </div>
@@ -128,11 +145,11 @@ const Register = () => {
                         Remember me
                     </Label>
                 </div>
-                <Button type="submit">
+                <Button color={'dark'} type="submit">
                     Register
                 </Button>
                 <p className='text-red-500'>{error}</p>
-                <p>Already Have Account? Please <Link to='/login'>Login</Link></p>
+                <p>Already Have Account? Please <Link to='/login'><u className='text-blue-600'>Login</u></Link></p>
             </form>
             <div className='mx-8 mb-8 px-4 pb-4  bg-slate-200 rounded-lg'>
                <h4 className='mt-2 p-2 text-lg text-center'>Otherwise Continue With</h4>
