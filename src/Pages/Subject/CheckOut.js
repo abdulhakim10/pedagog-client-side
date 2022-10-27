@@ -75,25 +75,7 @@ const CheckOut = () => {
                             </div>
                         </div>
                     </Card>
-                    {/* <div>
-                        <Card>
-                            <div className=''>
-                                <Label
-                                    htmlFor="password1"
-                                    value="Enrolment Code"
-                                />
-                                <TextInput
-                                    id="password1"
-                                    type="password"
-                                    placeholder='please enter the Code'
-                                    required={true}
-                                />
-                                <Button className='mt-4 w-full' type="submit">
-                                    Enroll
-                                </Button>
-                            </div>
-                        </Card>
-                    </div> */}
+                    
                 </div>
             </div>
         </div>
